@@ -1,35 +1,42 @@
 // You will add code in this file
-import React from "react";
-import CommentSection from "../CommentSection/CommentSectionContainer";
-import LikeSection from "./LikeSection";
+import React, { useState } from "react";
 import PostHeader from "./PostHeader";
-
+import LikeSection from "./LikeSection";
+import CommentSection from "../CommentSection/CommentSectionContainer";
 import "./Posts.css";
+
 
 // pass props in this file to
 const Post = props => {
   // set up state for the likes
-
+  console.log("props.propsPassedFromParent.username: ", props.propsPassedFromParent.username);
+  const [likes, setLikes] = useState(props.propsPassedFromParent.likes);
+  const[comments] = useState(props.propsPassedFromParent.comments);
+  //console.log("comments: ", comments);
+  const addLikes = likes => {
+    setLikes(likes => likes + 1);
+    console.log("setLikes: ", setLikes)
+  };
   return (
     <div className="post-border">
       <PostHeader
-        username={props.post.username}
+        username={props.propsPassedFromParent.username}
         thumbnailUrl={
-          props.post.thumbnailUrl
+          props.propsPassedFromParent.thumbnailUrl
         }
       />
       <div className="post-image-wrapper">
         <img
           alt="post thumbnail"
           className="post-image"
-          src={props.post.imageUrl}
+          src={props.propsPassedFromParent.imageUrl}
         />
       </div>
-      <LikeSection />
-      <CommentSection
-        postId={props.post.imageUrl}
-        comments={props.post.comments}
+      <LikeSection
+        likes={likes}
+        addLikes={addLikes}
       />
+      <CommentSection/>
     </div>
   );
 };
