@@ -36,7 +36,9 @@ const Post = props => {
         likes={likes}
         addLikes={addLikes}
       />
-      <CommentSection/>
+      <CommentSection
+        comments={props.propsPassedFromParent.comments}
+      />
     </div>
   );
 };
